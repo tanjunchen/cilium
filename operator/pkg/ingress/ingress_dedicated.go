@@ -16,6 +16,7 @@ import (
 	"github.com/cilium/cilium/pkg/logging/logfields"
 )
 
+// todo tanjunchen ingress
 func (ic *Controller) createLoadBalancer(svc *corev1.Service) error {
 	if svc == nil {
 		return nil
@@ -47,6 +48,7 @@ func (ic *Controller) createLoadBalancer(svc *corev1.Service) error {
 	return nil
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) createEndpoints(endpoints *corev1.Endpoints) error {
 	if endpoints == nil {
 		return nil
@@ -79,6 +81,7 @@ func (ic *Controller) createEndpoints(endpoints *corev1.Endpoints) error {
 	return nil
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) deleteResources(ing *slim_networkingv1.Ingress) error {
 	cec, svc, ep, err := ic.regenerate(ing, false)
 	if err != nil {
@@ -103,6 +106,7 @@ func (ic *Controller) deleteResources(ing *slim_networkingv1.Ingress) error {
 	return nil
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) deleteCiliumEnvoyConfig(cec *ciliumv2.CiliumEnvoyConfig) error {
 	if cec == nil {
 		return nil
@@ -132,6 +136,7 @@ func (ic *Controller) deleteCiliumEnvoyConfig(cec *ciliumv2.CiliumEnvoyConfig) e
 	return nil
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) deleteService(svc *corev1.Service) error {
 	if svc == nil {
 		return nil
@@ -161,6 +166,7 @@ func (ic *Controller) deleteService(svc *corev1.Service) error {
 	return nil
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) deleteEndpoint(ep *corev1.Endpoints) error {
 	if ep == nil {
 		return nil

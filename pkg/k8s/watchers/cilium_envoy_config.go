@@ -26,6 +26,7 @@ import (
 	"k8s.io/client-go/tools/cache"
 )
 
+// TODO tanjunchen
 func (k *K8sWatcher) ciliumEnvoyConfigInit(ctx context.Context, ciliumNPClient client.Clientset) {
 	apiGroup := k8sAPIGroupCiliumEnvoyConfigV2
 	_, cecController := informer.NewInformer(
@@ -95,6 +96,7 @@ func isIngressKind(meta *meta_v1.ObjectMeta) bool {
 	return false
 }
 
+// TODO tanjunchen
 func (k *K8sWatcher) addCiliumEnvoyConfig(cec *cilium_v2.CiliumEnvoyConfig) error {
 	scopedLog := log.WithFields(logrus.Fields{
 		logfields.CiliumEnvoyConfigName: cec.ObjectMeta.Name,
@@ -161,6 +163,7 @@ func getServiceName(resourceName loadbalancer.ServiceName, name, namespace strin
 	return loadbalancer.ServiceName{Name: name, Namespace: namespace}
 }
 
+// TODO tanjunchen
 func (k *K8sWatcher) addK8sServiceRedirects(resourceName loadbalancer.ServiceName, spec *cilium_v2.CiliumEnvoyConfigSpec, resources envoy.Resources) error {
 	// Redirect k8s services to an Envoy listener
 	for _, svc := range spec.Services {
@@ -204,6 +207,7 @@ func (k *K8sWatcher) addK8sServiceRedirects(resourceName loadbalancer.ServiceNam
 	return nil
 }
 
+// TODO tanjunchen
 func (k *K8sWatcher) updateCiliumEnvoyConfig(oldCEC *cilium_v2.CiliumEnvoyConfig, newCEC *cilium_v2.CiliumEnvoyConfig) error {
 	scopedLog := log.WithFields(logrus.Fields{
 		logfields.CiliumEnvoyConfigName: newCEC.ObjectMeta.Name,
@@ -323,6 +327,7 @@ func (k *K8sWatcher) removeK8sServiceRedirects(resourceName loadbalancer.Service
 	return nil
 }
 
+// TODO tanjunchen
 func (k *K8sWatcher) deleteCiliumEnvoyConfig(cec *cilium_v2.CiliumEnvoyConfig) error {
 	scopedLog := log.WithFields(logrus.Fields{
 		logfields.CiliumEnvoyConfigName: cec.ObjectMeta.Name,

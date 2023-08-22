@@ -358,6 +358,7 @@ func kvstoreEnabled() bool {
 
 var legacyCell = cell.Invoke(registerLegacyOnLeader)
 
+// todo tanjunchen ingress
 func registerLegacyOnLeader(lc hive.Lifecycle, clientset k8sClient.Clientset, resources operatorK8s.Resources) {
 	ctx, cancel := context.WithCancel(context.Background())
 	legacy := &legacyOnLeader{
@@ -391,6 +392,7 @@ func (legacy *legacyOnLeader) onStop(_ hive.HookContext) error {
 
 // OnOperatorStartLeading is the function called once the operator starts leading
 // in HA mode.
+// todo tanjunchen ingress
 func (legacy *legacyOnLeader) onStart(_ hive.HookContext) error {
 	isLeader.Store(true)
 
@@ -668,6 +670,7 @@ func (legacy *legacyOnLeader) onStart(_ hive.HookContext) error {
 		}
 	}
 
+	// todo tanjunchen ingress
 	if operatorOption.Config.EnableIngressController {
 		ingressController, err := ingress.NewController(
 			legacy.clientset,

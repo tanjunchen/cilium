@@ -22,6 +22,7 @@ import (
 	"k8s.io/client-go/tools/cache"
 )
 
+// TODO tanjunchen
 func (k *K8sWatcher) ciliumClusterwideEnvoyConfigInit(ctx context.Context, clientset client.Clientset) {
 	apiGroup := k8sAPIGroupCiliumClusterwideEnvoyConfigV2
 	_, ccecController := informer.NewInformer(

@@ -34,6 +34,7 @@ type envoyRedirect struct {
 
 var envoyOnce sync.Once
 
+// TODO tanjunchen
 func initEnvoy(runDir string, xdsServer *envoy.XDSServer, wg *completion.WaitGroup) {
 	envoyOnce.Do(func() {
 		if option.Config.ExternalEnvoyProxy {

@@ -280,6 +280,7 @@ func NewService(monitorNotify monitorNotify, envoyCache envoyCache, lbmap datapa
 
 // RegisterL7LBService makes the given service to be locally forwarded to the
 // given proxy port.
+// todo tanjunchen
 func (s *Service) RegisterL7LBService(serviceName, resourceName lb.ServiceName, ports []string, proxyPort uint16) error {
 	s.Lock()
 	err := s.registerL7LBService(serviceName, resourceName, ports, proxyPort)

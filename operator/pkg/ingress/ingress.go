@@ -100,6 +100,7 @@ type Controller struct {
 }
 
 // NewController returns a controller for ingress objects having ingressClassName as cilium
+// todo tanjunchen ingress
 func NewController(clientset k8sClient.Clientset, options ...Option) (*Controller, error) {
 	opts := DefaultIngressOptions
 	for _, opt := range options {
@@ -195,6 +196,7 @@ func NewController(clientset k8sClient.Clientset, options ...Option) (*Controlle
 }
 
 // Run kicks off the controlled loop
+// todo tanjunchen ingress
 func (ic *Controller) Run() {
 	defer ic.queue.ShutDown()
 	go ic.ingressInformer.Run(wait.NeverStop)
@@ -210,6 +212,7 @@ func (ic *Controller) Run() {
 	}
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) processEvent() bool {
 	event, shutdown := ic.queue.Get()
 	if shutdown {
@@ -253,6 +256,7 @@ func (ic *Controller) isCiliumIngressEntry(ingress *slim_networkingv1.Ingress) b
 	return className != nil && *className == ciliumIngressClassName
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) handleIngressAddedEvent(event ingressAddedEvent) error {
 	if !ic.isCiliumIngressEntry(event.ingress) {
 		// this could have been our class before we should clean up
@@ -269,6 +273,7 @@ func (ic *Controller) handleIngressAddedEvent(event ingressAddedEvent) error {
 	return ic.ensureResources(event.ingress, false)
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) handleIngressUpdatedEvent(event ingressUpdatedEvent) error {
 	if !ic.isCiliumIngressEntry(event.newIngress) {
 		return nil
@@ -304,6 +309,7 @@ func (ic *Controller) handleIngressUpdatedEvent(event ingressUpdatedEvent) error
 	return nil
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) handleIngressDeletedEvent(event ingressDeletedEvent) error {
 	log.WithField(logfields.Ingress, event.ingress.Name).WithField(logfields.K8sNamespace, event.ingress.Namespace).Debug("Deleting CiliumEnvoyConfig for ingress")
 	ic.secretManager.Add(event)
@@ -318,6 +324,7 @@ func (ic *Controller) handleIngressDeletedEvent(event ingressDeletedEvent) error
 	return ic.ensureResources(event.ingress, true)
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) handleIngressServiceUpdatedEvent(ingressServiceUpdated ingressServiceUpdatedEvent) error {
 	service := ingressServiceUpdated.ingressService
 
@@ -353,6 +360,7 @@ func (ic *Controller) handleIngressServiceUpdatedEvent(ingressServiceUpdated ing
 	return nil
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) handleCiliumIngressClassUpdatedEvent(event ciliumIngressClassUpdatedEvent) error {
 	log.Debugf("Cilium IngressClass updated")
 	previousValue := ic.isDefaultIngressClass
@@ -395,6 +403,7 @@ func (ic *Controller) handleCiliumIngressClassUpdatedEvent(event ciliumIngressCl
 	return nil
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) handleCiliumIngressClassDeletedEvent(event ciliumIngressClassDeletedEvent) error {
 	log.Debug("Cilium IngressClass deleted")
 
@@ -421,6 +430,7 @@ func (ic *Controller) handleCiliumIngressClassDeletedEvent(event ciliumIngressCl
 	return nil
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) ensureResources(ing *slim_networkingv1.Ingress, forceShared bool) error {
 	cec, svc, ep, err := ic.regenerate(ing, forceShared)
 	if err != nil {
@@ -452,6 +462,7 @@ func (ic *Controller) ensureResources(ing *slim_networkingv1.Ingress, forceShare
 	return nil
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) updateIngressStatus(ing *slim_networkingv1.Ingress, status *slim_corev1.LoadBalancerStatus) error {
 	if ing == nil || status == nil || k8s.ConvertToSlimIngressLoadBalancerStatus(status).DeepEqual(&ing.Status.LoadBalancer) {
 		return nil
@@ -490,6 +501,7 @@ func getIngressForStatusUpdate(slimIngress *slim_networkingv1.Ingress, lb slim_c
 	}
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) handleEvent(event interface{}) error {
 	var err error
 	switch ev := event.(type) {
@@ -537,6 +549,7 @@ func getIngressKeyForService(service *slim_corev1.Service) string {
 	return fmt.Sprintf("%s/%s", service.Namespace, ingressName)
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) createEnvoyConfig(cec *ciliumv2.CiliumEnvoyConfig) error {
 	if cec == nil {
 		return nil
@@ -641,6 +654,7 @@ func (ic *Controller) retrieveSharedLBServiceStatus() *slim_corev1.LoadBalancerS
 	return &svc.Status.LoadBalancer
 }
 
+// todo tanjunchen ingress
 func (ic *Controller) isEffectiveLoadbalancerModeDedicated(ing *slim_networkingv1.Ingress) bool {
 	value := annotations.GetAnnotationIngressLoadbalancerMode(ing)
 	switch value {

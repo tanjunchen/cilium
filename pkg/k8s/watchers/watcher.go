@@ -493,6 +493,7 @@ func (k *K8sWatcher) resourceGroups() (beforeNodeInitGroups, afterNodeInitGroups
 // caches essential for daemon are synchronized.
 // To be called after WaitForCRDsToRegister() so that all needed CRDs have
 // already been registered.
+// TODO tanjunchen
 func (k *K8sWatcher) InitK8sSubsystem(ctx context.Context, cachesSynced chan struct{}) {
 	log.Info("Enabling k8s event listener")
 	resources, afterNodeInitResources := k.resourceGroups()
@@ -531,6 +532,7 @@ type WatcherConfiguration interface {
 	utils.PolicyConfiguration
 }
 
+// TODO tanjunchen
 // enableK8sWatchers starts watchers for given resources.
 func (k *K8sWatcher) enableK8sWatchers(ctx context.Context, resourceNames []string) error {
 	if !k.clientset.IsEnabled() {

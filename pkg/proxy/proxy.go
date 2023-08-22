@@ -153,6 +153,7 @@ func createProxy(minPort uint16, maxPort uint16, runDir string,
 }
 
 // Overload XDSServer.UpsertEnvoyResources to start Envoy on demand
+// TODO tanjunchen
 func (p *Proxy) UpsertEnvoyResources(ctx context.Context, resources envoy.Resources, portAllocator envoy.PortAllocator) error {
 	initEnvoy(p.runDir, p.XDSServer, nil)
 	return p.XDSServer.UpsertEnvoyResources(ctx, resources, portAllocator)

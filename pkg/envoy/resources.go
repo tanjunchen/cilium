@@ -20,6 +20,8 @@ import (
 	"github.com/cilium/cilium/pkg/logging/logfields"
 )
 
+// todo tanjunchen XDS 资源类型
+
 const (
 	// ListenerTypeURL is the type URL of Listener resources.
 	ListenerTypeURL = "type.googleapis.com/envoy.config.listener.v3.Listener"
