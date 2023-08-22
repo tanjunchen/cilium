@@ -106,7 +106,7 @@ func qualifyRouteConfigurationResourceNames(namespace, name string, routeConfig 
 // ParseResources parses all supported Envoy resource types from CiliumEnvoyConfig CRD to Resources
 // type cecNamespace and cecName parameters, if not empty, will be prepended to the Envoy resource
 // names.
-// TODO tanjunchen
+// TODO tanjunchen CEC/CCEC
 func ParseResources(cecNamespace string, cecName string, anySlice []cilium_v2.XDSResource, validate bool, portAllocator PortAllocator, isL7LB bool, useOriginalSourceAddr bool) (Resources, error) {
 	resources := Resources{}
 	for _, r := range anySlice {
@@ -419,7 +419,7 @@ func ParseResources(cecNamespace string, cecName string, anySlice []cilium_v2.XD
 
 // UpsertEnvoyResources inserts or updates Envoy resources in 'resources' to the xDS cache,
 // from where they will be delivered to Envoy via xDS streaming gRPC.
-// TODO tanjunchen
+// TODO tanjunchen CEC/CCEC
 func (s *XDSServer) UpsertEnvoyResources(ctx context.Context, resources Resources, portAllocator PortAllocator) error {
 	if option.Config.Debug {
 		msg := ""

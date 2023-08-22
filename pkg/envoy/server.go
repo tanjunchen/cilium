@@ -721,7 +721,7 @@ func (s *XDSServer) deleteEndpoint(name string, wg *completion.WaitGroup, callba
 }
 
 // upsertSecret either updates an existing SDS secret with 'name', or creates a new one.
-// TODO tanjunchen
+// TODO tanjunchen CEC/CCEC
 func (s *XDSServer) upsertSecret(name string, conf *envoy_config_tls.Secret, wg *completion.WaitGroup, callback func(error)) xds.AckingResourceMutatorRevertFunc {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
